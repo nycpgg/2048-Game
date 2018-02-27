@@ -96,10 +96,10 @@ public class Games {
 
 					} else {
 						
-						for(int k=0;k<SIZE-1;k++){
-							if(tile[i][j].getNum()==tile[i][k].getNum()){
+						for(int k=0;k<SIZE;k++){
+							if((tile[i][j].getNum()==tile[i][k].getNum())||tile[i][k].getNum()==0){
 								tile[i][k].setNum(tile[i][j].getNum() + tile[i][k].getNum());
-								tile[i][j].setNum(k);
+								tile[i][j].setNum(0);
 								break;
 							}
 						}
