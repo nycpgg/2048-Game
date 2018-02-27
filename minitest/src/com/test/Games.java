@@ -16,6 +16,7 @@ public class Games {
 			}
 		}
 		return result;
+		
 	}
 
 	// 랜덤 추출
