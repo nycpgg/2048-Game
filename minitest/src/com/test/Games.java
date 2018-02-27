@@ -7,11 +7,7 @@ public class Games {
 	
 	public static boolean isEmpty(Tile[][] tile) {
 		boolean result = false;
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+		
 		for (int i = 0; i < tile.length; i++) {
 			for (int j = 0; j < tile[i].length; j++) {
 				if (tile[i][j].getNum() == 0) {
