@@ -196,17 +196,9 @@ public class Games {
 					if (j == 3) {
 
 					} else {
-						
-						for (int k = SIZE-1; k >=0 ; k--) {
-							for (int l = SIZE-1; l >= 0; l--) {
-								if (((tile[i][j].getNum()!=0&&(tile[i][l].getNum()!=0))&& (tile[i][j].getNum()==tile[i][l].getNum()) ) 
-										|| ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
-									
-									System.out.println(i+", "+j+", "+k+", "+l);
-									System.out.println("tile[i][j].getNum()"+tile[i][j].getNum());
-									System.out.println("tile[i][l].getNum()"+tile[i][l].getNum());
-									System.out.println("(tile[i][l].getNum() == 0"+(tile[i][l].getNum() == 0));
-									System.out.println("(tile[i][j].getNum() != 0))"+(tile[i][j].getNum() != 0));
+						for(int k=SIZE-1;k>=0;k--){
+							for(int l=SIZE-1;l>=0;l--){
+								if( (tile[i][j].getNum()==tile[i][l].getNum()) || tile[i][l].getNum()==0){
 									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
 									tile[i][j].setNum(0);
 									break;
@@ -214,6 +206,37 @@ public class Games {
 							}
 						}
 						
+						
+						/* 왼쪽이동 
+						for (int k = 0; k <= SIZE; k++) {
+							for (int l = 0; l < j; l++) {
+								if ((tile[i][j].getNum() == tile[i][l].getNum()) || ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
+							}
+						}
+						*/
+						/*
+						for (int k = SIZE-1; k >=0 ; k--) {
+							for (int l = SIZE-1; l >= 0; l--) {
+								if ( ( (tile[i][l].getNum()!=0) && (tile[i][j].getNum()==tile[i][l].getNum()) ) 
+										|| ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									
+									System.out.println("i:"+i+", j:"+j+", k:"+k+", l:"+l);
+									System.out.println("tile["+i+"]["+j+"].getNum()"+tile[i][j].getNum());
+									System.out.println("tile["+i+"]["+l+"].getNum()"+tile[i][l].getNum());
+									System.out.println("tile["+i+"]["+l+"].getNum() == 0"+(tile[i][l].getNum() == 0));
+									System.out.println("tile["+i+"]["+j+"].getNum() != 0"+(tile[i][j].getNum() != 0));
+									
+									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
+							}
+						}
+						*/
 						/*
 						tile[i][3].setNum(tile[i][j].getNum() + tile[i][3].getNum());
 						tile[i][j].setNum(0);
