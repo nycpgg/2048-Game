@@ -16,7 +16,6 @@ public class Games {
 			}
 		}
 		return result;
-
 	}
 
 	// 랜덤 추출
@@ -96,24 +95,34 @@ public class Games {
 
 					} else {
 
-						for (int k = 0; k <= j; k++) {
-							if ((tile[i][j].getNum() == tile[i][k].getNum()) || ((tile[i][k].getNum() == 0) &&(tile[i][j].getNum() != 0))) {
-								System.out.println(i+","+j);
-								tile[i][k].setNum(tile[i][j].getNum() + tile[i][k].getNum());
-								tile[i][j].setNum(0);
-										
-								break;
+						for (int k = 0; k <= SIZE; k++) {
+							for (int l = 0; l < j; l++) {
+								if ((tile[i][j].getNum() == tile[i][l].getNum()) || ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
 							}
 						}
 						/*
-						 * for(int k=0;k<SIZE;k++){
-						 * if((tile[i][j].getNum()==tile[i][k].getNum())||tile[i
-						 * ][k].getNum()==0){
+						 * for (int k = 0; k <= j; k++) { if
+						 * ((tile[i][j].getNum() == tile[i][k].getNum()) |
+						 * ((tile[i][k].getNum() == 0) &&(tile[i][j].getNum() !=
+						 * 0))) {
+						 * System.out.println("tile[i][j].getNum()"+tile[i][j].
+						 * getNum());
+						 * System.out.println("tile[i][k].getNum()"+tile[i][k].
+						 * getNum());
+						 * System.out.println("tile[i][k].getNum() == 0"+(tile[i
+						 * ][k].getNum() == 0));
+						 * System.out.println("tile[i][j].getNum() != 0"+(tile[i
+						 * ][j].getNum() != 0));
+						 * System.out.println(i+","+j+","+k);
 						 * tile[i][k].setNum(tile[i][j].getNum() +
-						 * tile[i][k].getNum()); tile[i][j].setNum(0); break; }
-						 * }
+						 * tile[i][k].getNum()); tile[i][j].setNum(0);
+						 * 
+						 * break; } }
 						 */
-
 						/*
 						 * if(tile[i][j].getNum()==tile[i][0].getNum()){
 						 * tile[i][0].setNum(tile[i][j].getNum() +
@@ -140,8 +149,22 @@ public class Games {
 					if (i == 0) {
 
 					} else {
+						
+						for (int k = 0; k <= SIZE; k++) {
+							for (int l = 0; l < i; l++) {
+								if ((tile[i][j].getNum() == tile[l][j].getNum()) || ((tile[l][j].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									tile[l][j].setNum(tile[i][j].getNum() + tile[l][j].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
+							}
+						}
+						
+						/*
 						tile[0][j].setNum(tile[i][j].getNum() + tile[0][j].getNum());
 						tile[i][j].setNum(0);
+						*/
+						
 					}
 				}
 			}
@@ -156,6 +179,7 @@ public class Games {
 					if (i == 3) {
 
 					} else {
+						
 						tile[3][j].setNum(tile[i][j].getNum() + tile[3][j].getNum());
 						tile[i][j].setNum(0);
 					}
@@ -172,8 +196,29 @@ public class Games {
 					if (j == 3) {
 
 					} else {
+						
+						for (int k = SIZE-1; k >=0 ; k--) {
+							for (int l = SIZE-1; l >= 0; l--) {
+								if (((tile[i][j].getNum()!=0&&(tile[i][l].getNum()!=0))&& (tile[i][j].getNum()==tile[i][l].getNum()) ) 
+										|| ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									
+									System.out.println(i+", "+j+", "+k+", "+l);
+									System.out.println("tile[i][j].getNum()"+tile[i][j].getNum());
+									System.out.println("tile[i][l].getNum()"+tile[i][l].getNum());
+									System.out.println("(tile[i][l].getNum() == 0"+(tile[i][l].getNum() == 0));
+									System.out.println("(tile[i][j].getNum() != 0))"+(tile[i][j].getNum() != 0));
+									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
+							}
+						}
+						
+						/*
 						tile[i][3].setNum(tile[i][j].getNum() + tile[i][3].getNum());
 						tile[i][j].setNum(0);
+						*/
+						
 					}
 				}
 			}
