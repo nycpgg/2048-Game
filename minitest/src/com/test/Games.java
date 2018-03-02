@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Games {
 	static final int SIZE = 4;
+	static int col = 5, row = 5;
 
 	public static boolean isEmpty(Tile[][] tile) {
 		boolean result = false;
@@ -95,15 +96,30 @@ public class Games {
 
 					} else {
 
-						for (int k = 0; k <= SIZE; k++) {
+						for (int k = 0; k < SIZE; k++) {
 							for (int l = 0; l < j; l++) {
-								if ((tile[i][j].getNum() == tile[i][l].getNum()) || ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+								if ((tile[i][j].getNum() == tile[i][l].getNum())
+										|| (tile[i][j].getNum() != 0 && tile[i][l].getNum() == 0)) {
+									System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", l:");
 									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
 									tile[i][j].setNum(0);
 									break;
 								}
 							}
 						}
+						
+/*	//기존 왼쪽 코드
+						for (int k = 0; k <= SIZE; k++) {
+							for (int l = 0; l < j; l++) {
+								if ((tile[i][j].getNum() == tile[i][l].getNum())
+										|| ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+									tile[i][j].setNum(0);
+									break;
+								}
+							}
+						}
+*/
 						/*
 						 * for (int k = 0; k <= j; k++) { if
 						 * ((tile[i][j].getNum() == tile[i][k].getNum()) |
@@ -149,22 +165,23 @@ public class Games {
 					if (i == 0) {
 
 					} else {
-						
+
 						for (int k = 0; k <= SIZE; k++) {
 							for (int l = 0; l < i; l++) {
-								if ((tile[i][j].getNum() == tile[l][j].getNum()) || ((tile[l][j].getNum() == 0) && (tile[i][j].getNum() != 0))) {
+								if ((tile[i][j].getNum() == tile[l][j].getNum())
+										|| ((tile[l][j].getNum() == 0) && (tile[i][j].getNum() != 0))) {
 									tile[l][j].setNum(tile[i][j].getNum() + tile[l][j].getNum());
 									tile[i][j].setNum(0);
 									break;
 								}
 							}
 						}
-						
+
 						/*
-						tile[0][j].setNum(tile[i][j].getNum() + tile[0][j].getNum());
-						tile[i][j].setNum(0);
-						*/
-						
+						 * tile[0][j].setNum(tile[i][j].getNum() +
+						 * tile[0][j].getNum()); tile[i][j].setNum(0);
+						 */
+
 					}
 				}
 			}
@@ -179,7 +196,7 @@ public class Games {
 					if (i == 3) {
 
 					} else {
-						
+
 						tile[3][j].setNum(tile[i][j].getNum() + tile[3][j].getNum());
 						tile[i][j].setNum(0);
 					}
@@ -196,52 +213,142 @@ public class Games {
 					if (j == 3) {
 
 					} else {
-						for(int k=SIZE-1;k>=0;k--){
-							for(int l=SIZE-1;l>=0;l--){
-								if( (tile[i][j].getNum()==tile[i][l].getNum()) || tile[i][l].getNum()==0){
-									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
-									tile[i][j].setNum(0);
-									break;
-								}
-							}
-						}
 						
-						
-						/* 왼쪽이동 
-						for (int k = 0; k <= SIZE; k++) {
-							for (int l = 0; l < j; l++) {
-								if ((tile[i][j].getNum() == tile[i][l].getNum()) || ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
-									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+						for (int l = SIZE - 1; l >= 0; l--) {
+							for (int k = SIZE - 1; k > j; k--) {
+								if ((tile[i][j].getNum() == tile[i][k].getNum())
+										|| (tile[i][j].getNum() != 0 && tile[i][k].getNum() == 0)) {
+									System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", l:");
+									tile[i][k].setNum(tile[i][j].getNum() + tile[i][k].getNum());
 									tile[i][j].setNum(0);
-									break;
-								}
-							}
-						}
-						*/
-						/*
-						for (int k = SIZE-1; k >=0 ; k--) {
-							for (int l = SIZE-1; l >= 0; l--) {
-								if ( ( (tile[i][l].getNum()!=0) && (tile[i][j].getNum()==tile[i][l].getNum()) ) 
-										|| ((tile[i][l].getNum() == 0) && (tile[i][j].getNum() != 0))) {
 									
-									System.out.println("i:"+i+", j:"+j+", k:"+k+", l:"+l);
-									System.out.println("tile["+i+"]["+j+"].getNum()"+tile[i][j].getNum());
-									System.out.println("tile["+i+"]["+l+"].getNum()"+tile[i][l].getNum());
-									System.out.println("tile["+i+"]["+l+"].getNum() == 0"+(tile[i][l].getNum() == 0));
-									System.out.println("tile["+i+"]["+j+"].getNum() != 0"+(tile[i][j].getNum() != 0));
-									
-									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
-									tile[i][j].setNum(0);
-									break;
 								}
 							}
 						}
-						*/
-						/*
-						tile[i][3].setNum(tile[i][j].getNum() + tile[i][3].getNum());
-						tile[i][j].setNum(0);
-						*/
 						
+						/*
+						 * for (int k = j; k < SIZE - 1; k++) { if
+						 * ((tile[i][k].getNum() != 0 && (tile[i][k].getNum() ==
+						 * tile[i][k + 1].getNum())) || (tile[i][k].getNum() !=
+						 * 0 && tile[i][k + 1].getNum() == 0)) {
+						 * System.out.println("i:" + i + ", j:" + j + ", k:" +
+						 * k+", l:"); tile[i][k + 1].setNum(tile[i][k].getNum()
+						 * + tile[i][k + 1].getNum()); tile[i][k].setNum(0);
+						 * break; } }
+						 */
+						/*
+						 * 왼쪽이동 for (int k = 0; k <= SIZE; k++) { for (int l =
+						 * 0; l < j; l++) { if ((tile[i][j].getNum() ==
+						 * tile[i][l].getNum()) || ((tile[i][l].getNum() == 0)
+						 * && (tile[i][j].getNum() != 0))) {
+						 * tile[i][l].setNum(tile[i][j].getNum()
+						 * +tile[i][l].getNum()); tile[i][j].setNum(0); break; }
+						 * } }
+						 */
+						/*
+						 * // i=3, j=0; tile[i][3].setNum(tile[i][3].getNum() +
+						 * tile[i][3].getNum());
+						 * tile[i][3].setNum(tile[i][3].getNum() +
+						 * tile[i][3].getNum());
+						 */
+						/*
+						 * // k=1씩 감소 // l=k-1까지 1씩 증가 for (int k = SIZE - 1; k
+						 * >= 0; k--) { for (int l = k - 1; l > 0; l--) { if
+						 * ((tile[i][j].getNum() == tile[i][l].getNum()) ||
+						 * (tile[i][l].getNum() == 0 && tile[i][j].getNum() !=
+						 * 0)) { System.out.println("i:" + i + ", j:" + j +
+						 * ", k:" + k+"l:"+l);
+						 * tile[i][l].setNum(tile[i][j].getNum() +
+						 * tile[i][l].getNum()); if (j == k) {
+						 * 
+						 * } else { tile[i][j].setNum(0); } } } }
+						 */
+						/*
+						 * tile[i][1].setNum(tile[i][1].getNum()+tile[i][0].
+						 * getNum());
+						 * 
+						 * 
+						 * 
+						 * tile[i][3].setNum(tile[i][3].getNum()+tile[i][0].
+						 * getNum());
+						 * tile[i][3].setNum(tile[i][3].getNum()+tile[i][1].
+						 * getNum());
+						 * tile[i][3].setNum(tile[i][3].getNum()+tile[i][2].
+						 * getNum());
+						 * 
+						 * 
+						 * tile[i][2].setNum(tile[i][2].getNum()+tile[i][0].
+						 * getNum());
+						 * tile[i][2].setNum(tile[i][2].getNum()+tile[i][1].
+						 * getNum());
+						 * 
+						 * tile[i][1].setNum(tile[i][1].getNum()+tile[i][0].
+						 * getNum());
+						 * 
+						 * tile[i][0].setNum(tile[i][0].getNum()+tile[i][0].
+						 * getNum());
+						 * tile[i][3].setNum(tile[i][3].getNum()+tile[i][1].
+						 * getNum());
+						 * tile[i][3].setNum(tile[i][3].getNum()+tile[i][2].
+						 * getNum());
+						 */
+						/*
+						 * for (int k = SIZE - 1; k >= 0; k--) { for (int l =
+						 * SIZE - 1; l >= 0; l--) { if ((tile[i][j].getNum() ==
+						 * tile[i][l].getNum()) | (tile[i][l].getNum() == 0 &&
+						 * tile[i][j].getNum() != 0)) { System.out.println("i:"
+						 * + i + ", j:" + j + ", k:" + k + ", l:" + l);
+						 * System.out.println("tile[" + i + "][" + j +
+						 * "].getNum()" + tile[i][j].getNum());
+						 * System.out.println("tile[" + i + "][" + l +
+						 * "].getNum()" + tile[i][l].getNum());
+						 * tile[i][l].setNum(tile[i][j].getNum() +
+						 * tile[i][l].getNum()); tile[i][j].setNum(0); break; }
+						 * } }
+						 */
+						/*
+						 * //이전 복사 for (int k = SIZE - 1; k >= 0; k--) { for
+						 * (int l = SIZE - 1; l >= 0; l--) { if
+						 * ((tile[i][j].getNum() == tile[i][l].getNum()) |
+						 * (tile[i][l].getNum() == 0 && tile[i][j].getNum() !=
+						 * 0)) { System.out.println("i:" + i + ", j:" + j +
+						 * ", k:" + k + ", l:" + l); System.out.println("tile["
+						 * + i + "][" + j + "].getNum()" + tile[i][j].getNum());
+						 * System.out.println("tile[" + i + "][" + l +
+						 * "].getNum()" + tile[i][l].getNum());
+						 * tile[i][l].setNum(tile[i][j].getNum() +
+						 * tile[i][l].getNum()); tile[i][j].setNum(0); break; }
+						 * } }
+						 */
+
+						/*
+						 * for (int k = SIZE-1; k >=0 ; k--) { for (int l =
+						 * SIZE-1; l >= 0; l--) { if ( (
+						 * (tile[i][l].getNum()!=0) &&
+						 * (tile[i][j].getNum()==tile[i][l].getNum()) ) ||
+						 * ((tile[i][l].getNum() == 0) && (tile[i][j].getNum()
+						 * != 0))) {
+						 * 
+						 * System.out.println("i:"+i+", j:"+j+", k:"+k+", l:"+l)
+						 * ;
+						 * System.out.println("tile["+i+"]["+j+"].getNum()"+tile
+						 * [i][j].getNum());
+						 * System.out.println("tile["+i+"]["+l+"].getNum()"+tile
+						 * [i][l].getNum());
+						 * System.out.println("tile["+i+"]["+l+"].getNum() == 0"
+						 * +(tile[i][l].getNum() == 0));
+						 * System.out.println("tile["+i+"]["+j+"].getNum() != 0"
+						 * +(tile[i][j].getNum() != 0));
+						 * 
+						 * tile[i][l].setNum(tile[i][j].getNum() +
+						 * tile[i][l].getNum()); tile[i][j].setNum(0); break; }
+						 * } }
+						 */
+						/*
+						 * tile[i][3].setNum(tile[i][j].getNum() +
+						 * tile[i][3].getNum()); tile[i][j].setNum(0);
+						 */
+
 					}
 				}
 			}
