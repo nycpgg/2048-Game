@@ -207,25 +207,33 @@ public class Games {
 	}
 
 	public static Tile[][] moveRight(Tile[][] tile) {
-		for (int i = 0; i < tile.length; i++) {
-			for (int j = 0; j < tile[i].length; j++) {
-				if (tile[i][j].getNum() != 0) {
-					if (j == 3) {
-
-					} else {
+		for (int i = tile.length-1; i >= 0; i--) {
+			for (int j = tile[i].length-1; j >= 0; j--) {
+				if (tile[j][i].getNum() != 0) {
+					
+						for(int l= SIZE-1; l >= 0; l--)
+						for(int k = SIZE - 1; k > i; k--){
+							if((tile[j][k].getNum() == tile[j][k-1].getNum())	|| (tile[j][k].getNum() != 0)&&(tile[j][k-1].getNum() == 0) || (tile[j][k].getNum() == 0)&&(tile[j][k-1].getNum() != 0)){
+								System.out.println("j:" + j + ", i:" + i + ", k:" + k+", i:"+i);
+								tile[j][k].setNum(tile[j][k].getNum() + tile[j][k-1].getNum());
+								tile[j][k-1].setNum(0);
+							}
+						}
+						}	
 						
+						/*
 						for (int l = SIZE - 1; l >= 0; l--) {
-							for (int k = SIZE - 1; k > j; k--) {
+							for (int k = j+1; k >= 0; k--) {
 								if ((tile[i][j].getNum() == tile[i][k].getNum())
 										|| (tile[i][j].getNum() != 0 && tile[i][k].getNum() == 0)) {
-									System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", l:");
-									tile[i][k].setNum(tile[i][j].getNum() + tile[i][k].getNum());
+									System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", l:"+l);
+									tile[i][k].setNum(tile[i][k].getNum() + tile[i][j].getNum());
 									tile[i][j].setNum(0);
-									
+									break;
 								}
 							}
 						}
-						
+						*/
 						/*
 						 * for (int k = j; k < SIZE - 1; k++) { if
 						 * ((tile[i][k].getNum() != 0 && (tile[i][k].getNum() ==
@@ -349,8 +357,8 @@ public class Games {
 						 * tile[i][3].getNum()); tile[i][j].setNum(0);
 						 */
 
-					}
-				}
+					
+				
 			}
 		}
 		return tile;
