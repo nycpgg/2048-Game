@@ -3,8 +3,8 @@ package com.test;
 import java.util.Scanner;
 
 public class Games {
-	static final int SIZE = 4;
-	static int col = 5, row = 5;
+	static final int SIZE = 4; // 칸 수
+	static int score = 0, highScore = 0; // 현재 점수, 최고 점수
 
 	public static boolean isEmpty(Tile[][] tile) {
 		boolean result = false;
@@ -68,17 +68,25 @@ public class Games {
 
 			switch (inputKey) {
 
-			case 4:
-				printTile(moveLeft(tile));
+			case 4: // 왼쪽
+				printTile(moveTile(tile, 0, 0, -1));
+				System.out.println("최고점수 : " + highScore);
+				System.out.println("현재점수 : " + score);
 				break;
-			case 6:
-				printTile(moveRight(tile));
+			case 6: // 오른쪽
+				printTile(moveTile(tile, SIZE * SIZE - 1, 0, 1));
+				System.out.println("최고점수 : " + highScore);
+				System.out.println("현재점수 : " + score);
 				break;
-			case 8:
-				printTile(moveUp(tile));
+			case 8: // 위
+				printTile(moveTile(tile, 0, -1, 0));
+				System.out.println("최고점수 : " + highScore);
+				System.out.println("현재점수 : " + score);
 				break;
-			case 2:
-				printTile(moveDown(tile));
+			case 2: // 아래
+				printTile(moveTile(tile, SIZE * SIZE - 1, 1, 0));
+				System.out.println("최고점수 : " + highScore);
+				System.out.println("현재점수 : " + score);
 				break;
 			default:
 				break;
@@ -87,32 +95,127 @@ public class Games {
 
 	}
 
-	public static Tile[][] moveLeft(Tile[][] tile) {
+	public static Tile[][] moveTile(Tile[][] tile, int reveres, int row, int col) {
+
+		for (int k = 0; k < SIZE * SIZE; k++) {
+
+			int temp = Math.abs(reveres - k);
+
+			int i = temp / SIZE;
+			int j = temp % SIZE;
+
+			if (tile[i][j].getNum() == 0) {
+				continue;
+			}
+
+			int nextRow = i + row;
+			int nextCol = j + col;
+
+			while (nextRow >= 0 && nextRow < SIZE && nextCol >= 0 && nextCol < SIZE) {
+				Tile next = tile[nextRow][nextCol];
+
+				// tile[i][j]가 0이 아니고 next가 0일때
+				if (next.getNum() == 0) {
+					next.setNum(next.getNum() + tile[i][j].getNum());
+					tile[i][j].setNum(0);
+
+					i = nextRow;
+					j = nextCol;
+					nextRow += row;
+					nextCol += col;
+
+				} else if (tile[i][j].getNum() == next.getNum()) {
+
+					next.setNum(next.getNum() + tile[i][j].getNum());
+					score += next.getNum();
+					tile[i][j].setNum(0);
+
+					i = nextRow;
+					j = nextCol;
+					nextRow += row;
+					nextCol += col;
+
+					if (score > highScore) {
+						highScore = score;
+					}
+					break;
+				} else {
+					break;
+				}
+
+			}
+		}
+
+		return tile;
+	}
+
+	public static Tile[][] moveLeft(Tile[][] tile, int row, int col) {
+
 		for (int i = 0; i < tile.length; i++) {
 			for (int j = 0; j < tile[i].length; j++) {
 
-				if (tile[i][j].getNum() != 0) {
-					if (j == 0) {
+				if (tile[i][j].getNum() == 0) {
+					continue;
+				}
 
-					} else {
+				int nextRow = i + row;
+				int nextCol = j + col;
 
-						for (int k = 0; k < SIZE; k++) {
-							for (int l = 0; l < j; l++) {
-								if ((tile[i][j].getNum() == tile[i][l].getNum())
-										|| (tile[i][j].getNum() != 0 && tile[i][l].getNum() == 0)) {
-									System.out.println("i:" + i + ", j:" + j + ", k:" + k + ", l:");
-									tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
-									tile[i][j].setNum(0);
-									break;
-								}
-							}
+				while (nextRow >= 0 && nextRow < SIZE && nextCol >= 0 && nextCol < SIZE) {
+					Tile next = tile[nextRow][nextCol];
+
+					// tile[i][j]가 0이 아니고 next가 0일때
+					if (next.getNum() == 0) {
+						next.setNum(next.getNum() + tile[i][j].getNum());
+						tile[i][j].setNum(0);
+
+						i = nextRow;
+						j = nextCol;
+						nextRow += row;
+						nextCol += col;
+
+					} else if (tile[i][j].getNum() == next.getNum()) {
+
+						next.setNum(next.getNum() + tile[i][j].getNum());
+						score += next.getNum();
+
+						i = nextRow;
+						j = nextCol;
+						nextRow += row;
+						nextCol += col;
+
+						if (score > highScore) {
+							highScore = score;
 						}
-
+						break;
+					} else {
+						break;
 					}
 
 				}
+
 			}
 		}
+
+		/*
+		 * for (int i = 0; i < tile.length; i++) { for (int j = 0; j <
+		 * tile[i].length; j++) {
+		 * 
+		 * if (tile[i][j].getNum() != 0) { if (j == 0) {
+		 * 
+		 * } else {
+		 * 
+		 * for (int k = 0; k < SIZE; k++) { for (int l = 0; l < j; l++) { if
+		 * ((tile[i][j].getNum() == tile[i][l].getNum()) || (tile[i][j].getNum()
+		 * != 0 && tile[i][l].getNum() == 0)) { System.out.println("i:" + i +
+		 * ", j:" + j + ", k:" + k + ", l:");
+		 * tile[i][l].setNum(tile[i][j].getNum() + tile[i][l].getNum());
+		 * tile[i][j].setNum(0); break; } } }
+		 * 
+		 * }
+		 * 
+		 * } } }
+		 */
 		return tile;
 	}
 
@@ -168,8 +271,8 @@ public class Games {
 		for (int i = tile.length - 1; i >= 0; i--) {
 			for (int j = tile[i].length - 1; j >= 0; j--) {
 				if (tile[j][i].getNum() != 0) {
-					
-					for(int l=SIZE-1;l>=0;l--){
+
+					for (int l = SIZE - 1; l >= 0; l--) {
 						for (int k = SIZE - 1; k > i; k--) {
 							if ((tile[j][k].getNum() == tile[j][k - 1].getNum())
 									|| (tile[j][k].getNum() != 0) && (tile[j][k - 1].getNum() == 0)
@@ -180,7 +283,7 @@ public class Games {
 							}
 						}
 					}
-					
+
 				}
 
 			}

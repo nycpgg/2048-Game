@@ -20,7 +20,8 @@ public class Tile {
 	
 	@Override
 	public String toString(){
-		return "["+num+"]";
+		String result=String.format("[ %3d   ]",num) ;
+		return result;
 	}
 	
 }
